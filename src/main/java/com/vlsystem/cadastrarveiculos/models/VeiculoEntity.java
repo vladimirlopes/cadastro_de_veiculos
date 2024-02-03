@@ -1,5 +1,9 @@
 package com.vlsystem.cadastrarveiculos.models;
 
+import org.springframework.beans.BeanUtils;
+
+import com.vlsystem.cadastrarveiculos.dto.VeiculoDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Veiculo {
+public class VeiculoEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long codigo;
@@ -29,5 +33,9 @@ public class Veiculo {
 	private String cor;
 	@Column(nullable = false)
 	private String placa;
+	public VeiculoEntity(VeiculoDTO veiculo) {
+		BeanUtils.copyProperties(veiculo, this);
+	
 
+	}
 }
