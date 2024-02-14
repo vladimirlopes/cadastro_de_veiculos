@@ -8,19 +8,19 @@ import lombok.Data;
 
 @Data
 public class VeiculoDTO {
-	private Long id;
+	private Long codigo;
 	
-	private String caminhao;
+	private String marca;
 	
-	private String carro;
+	private String modelo;
 	
-	private String van;
+	private String ano;
 	
-	private String suv;
+	private String cor;
 	
-	private String caminhonete;
+	private String placa;
 	
-	private String moto;
+	
 	public VeiculoDTO(VeiculoEntity veiculoEntity) {
 		
 		BeanUtils.copyProperties(veiculoEntity, this);

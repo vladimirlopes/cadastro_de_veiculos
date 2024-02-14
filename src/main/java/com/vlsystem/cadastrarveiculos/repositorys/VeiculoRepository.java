@@ -6,4 +6,8 @@ import com.vlsystem.cadastrarveiculos.models.VeiculoEntity;
 
 public interface VeiculoRepository extends JpaRepository<VeiculoEntity, Long>{
 
+	boolean placaExiste(String placa);
+
+	
+
 }
