@@ -4,24 +4,20 @@ import org.springframework.beans.BeanUtils;
 
 import com.vlsystem.cadastrarveiculos.models.CategoriaEntity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class CategoriaDTO {
 	private Long id;
 
-	private String caminhao;
+	private String nome;
 	
-	private String carro;
-	
-	private String van;
-	
-	private String suv;
-	
-	private String caminhonete;
-	
-	private String moto;
-	
+	public CategoriaDTO() {
+		
+	}
+
 	public CategoriaDTO(CategoriaEntity categoriaEntity) {
 		BeanUtils.copyProperties(categoriaEntity, this);
 

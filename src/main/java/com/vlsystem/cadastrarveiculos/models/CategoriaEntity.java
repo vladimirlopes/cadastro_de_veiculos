@@ -1,49 +1,48 @@
 package com.vlsystem.cadastrarveiculos.models;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 
 import com.vlsystem.cadastrarveiculos.dto.CategoriaDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name ="categoria")
-@NoArgsConstructor
-@AllArgsConstructor
-public class CategoriaEntity {
+@Table(name = "tb_categoria")
+
+public class CategoriaEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	@Column(nullable = false)
-	private String caminhao;
-	@Column(nullable = false)
-	private String carro;
-	@Column(nullable = false)
-	private String van;
-	@Column(nullable = false)
-	private String suv;
-	@Column(nullable = false)
-	private String caminhonete;
-	@Column(nullable = false)
-	private String moto;
-	//uma categoria possui varios veiculos
-	@JoinColumn(name = "id_categoria")
-	@OneToMany
-	private List<VeiculoEntity>veiculos;
-	
+	@Column(name = "id_categoria")
+	private UUID id;
+	@NotBlank(message = "campo não informado")
+	@Pattern(regexp = "^[A-Z]+(.)*", message = "Primeira letra do nome deve ser maiúscula")
+	private String nome;
+
+	// uma categoria possui varios veiculos,ao excluir a categoria ,exclui tambem os veiculos
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	private List<VeiculoEntity> veiculos = new ArrayList<>();
+	public CategoriaEntity() {
+		
+	}
+
 	public CategoriaEntity(CategoriaDTO categoria) {
 		BeanUtils.copyProperties(categoria, this);
 
